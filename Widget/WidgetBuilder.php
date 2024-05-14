@@ -13,6 +13,7 @@ namespace Pd\WidgetBundle\Widget;
 
 use Doctrine\ORM\EntityManagerInterface;
 use Pd\WidgetBundle\Builder\ItemInterface;
+use Pd\WidgetBundle\Entity\WidgetUser;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 
 /**
@@ -115,7 +116,7 @@ class WidgetBuilder implements WidgetBuilderInterface
     {
         if (!$this->widgetConfig) {
             $config = $this->entityManager
-                ->getRepository('PdWidgetBundle:WidgetUser')
+              ->getRepository(WidgetUser::class)
                 ->findOneBy([
                     'owner' => $this->tokenStorage->getToken()->getUser(),
                 ]);

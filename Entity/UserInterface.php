@@ -18,5 +18,5 @@ namespace Pd\WidgetBundle\Entity;
  */
 interface UserInterface
 { 
-    public function getId(): int;
+    public function getId(): ?int;
 }
