@@ -11,7 +11,9 @@
 
 namespace Pd\WidgetBundle\Entity;
 
+use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Pd\WidgetBundle\Repository\WidgetUserRepository;
 
 /**
  * Widget Private User Data.
@@ -22,6 +24,9 @@ use Doctrine\ORM\Mapping as ORM;
  *
  * @author Ramazan APAYDIN <apaydin541@gmail.com>
  */
+#[ORM\Entity(repositoryClass: WidgetUserRepository::class)]
+#[ORM\Table(name: 'widget_user')]
+#[ORM\Cache(usage: 'NONSTRICT_READ_WRITE')]
 class WidgetUser
 {
     /**
@@ -29,17 +34,23 @@ class WidgetUser
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
      */
+    #[ORM\Id]
+    #[ORM\GeneratedValue]
+    #[ORM\Column(type: Types::INTEGER)]
     private $id;
 
     /**
      * @ORM\Column(type="array")
      */
+    #[ORM\Column(type: Types::ARRAY)]
     private $config;
 
     /**
      * @ORM\OneToOne(targetEntity="UserInterface")
      * @ORM\JoinColumn(referencedColumnName="id", unique=true, onDelete="CASCADE")
      */
+    #[ORM\OneToOne(targetEntity: UserInterface::class)]
+    #[ORM\JoinColumn(referencedColumnName: 'id', unique: true, onDelete: 'CASCADE')]
     private $owner;
 
     /**
